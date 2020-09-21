@@ -1,32 +1,49 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Category } from '../Category';
 
 import { List, Item } from './styles';
 
-// eslint-disable-next-line import/prefer-default-export
 export const ListOfCategories = () => {
   const [categories, setCategories] = useState([]);
+  const [showFixed, setShowFixed] = useState(false);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await window.fetch(
-        'https://petgram-server-fernando-bt7tt9d9u.vercel.app/categories'
-      );
-      const data = await response.json();
-      setCategories(data);
-    };
-
-    fetchCategories();
+    window
+      .fetch('https://petgram-server-fernando-bt7tt9d9u.vercel.app/categories')
+      .then((res) => res.json())
+      .then((response) => {
+        setCategories(response);
+      });
   }, []);
 
-  return (
-    <List>
+  useEffect(() => {
+    const onScroll = (e) => {
+      const newShowFixed = window.scrollY > 200;
+      showFixed !== newShowFixed && setShowFixed(newShowFixed);
+    };
+
+    document.addEventListener('scroll', onScroll);
+
+    return () => document.removeEventListener('scroll', onScroll);
+  }, [showFixed]);
+
+  const renderList = (fixed) => (
+    <List className={fixed ? 'fixed' : ''}>
       {categories.map((category) => (
         <Item key={category.id}>
           <Category {...category} />
         </Item>
       ))}
     </List>
+  );
+
+  return (
+    <>
+      {renderList()}
+      {showFixed && renderList(true)}
+    </>
   );
 };
