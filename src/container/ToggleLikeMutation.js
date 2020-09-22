@@ -1,21 +1,21 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
-import { gql } from 'apollo-boost';
-import { Mutation } from 'react-apollo';
+import React from 'react'
+import { gql } from 'apollo-boost'
+import { Mutation } from 'react-apollo'
 
 const LIKE_PHOTO = gql`
-  mutation likeAnonymousPhoto($input: LikePhoto!) {
-    likeAnonymousPhoto(input: $input) {
-      id,
-      liked,
-      likes
-    }
+mutation likePhoto($input: LikePhoto!) {
+  likePhoto(input: $input) {
+    id,
+    liked,
+    likes
   }
-`;
+}
+`
 
-export const ToggleLikeMutation = ({ children }) => (
-  <Mutation mutation={LIKE_PHOTO}>
+export const ToggleLikeMutation = ({ children }) => {
+  return <Mutation mutation={LIKE_PHOTO}>
     {children}
   </Mutation>
-);
+}

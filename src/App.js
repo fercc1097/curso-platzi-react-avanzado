@@ -4,25 +4,27 @@ import React from 'react';
 import { Router } from '@reach/router';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { Logo } from './components/Logo';
-import { Home } from './pages/Home';
-import { Detail } from './pages/Detail';
-import { User } from './pages/User';
-import { Favs } from './pages/Favs';
-import { NotRegisteredUser } from './pages/NotRegisteredUser';
 import { NavBar } from './components/NavBar';
 
-const UserLogged = ({ children }) => children({ isAuth: true });
+import { Home } from './pages/Home';
+import { Detail } from './pages/Detail';
+import { Favs } from './pages/Favs';
+import { User } from './pages/User';
+import { NotRegisteredUser } from './pages/NotRegisteredUser';
+
+import Context from './Context';
 
 export const App = () => (
   <div>
-    <Logo />
     <GlobalStyle />
+    <Logo />
     <Router>
       <Home path='/' />
-      <Home path='/pet/:id' />
+      <Home path='/pet/:categoryId' />
       <Detail path='/detail/:detailId' />
     </Router>
-    <UserLogged>
+
+    <Context.Consumer>
       {({ isAuth }) =>
         isAuth ? (
           <Router>
@@ -36,7 +38,8 @@ export const App = () => (
           </Router>
         )
       }
-    </UserLogged>
+    </Context.Consumer>
+
     <NavBar />
   </div>
 );

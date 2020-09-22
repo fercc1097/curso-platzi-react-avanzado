@@ -1,14 +1,14 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable react/jsx-no-undef */
-import React from 'react';
-import { ListOfPhotoCards } from '../container/ListOfPhotoCards';
+import React, { Fragment } from 'react';
 import { ListOfCategories } from '../components/ListOfCategories';
+import { ListOfPhotoCards } from '../container/ListOfPhotoCards';
 
-export const Home = ({ id }) => {
+export const Home = ({ categoryId }) => {
   return (
-    <>
+    <Fragment>
       <ListOfCategories />
-      <ListOfPhotoCards categoryId={id} />
-    </>
+      <ListOfPhotoCards categoryId={categoryId} />
+    </Fragment>
   );
 };
