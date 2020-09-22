@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { Link } from '@reach/router';
 import { ImgWrapper, Img, Article } from './styles';
 import { FavButton } from '../FavButton';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -19,11 +21,11 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
     <Article ref={element}>
       {show && (
         <>
-          <a href={`/?detail=${id}`}>
+          <Link to={`/detail/${id}`}>
             <ImgWrapper>
               <Img src={src} alt='an animal' />
             </ImgWrapper>
-          </a>
+          </Link>
           <ToggleLikeMutation>
             {(toggleLike) => {
               const handleFavClick = () => {
