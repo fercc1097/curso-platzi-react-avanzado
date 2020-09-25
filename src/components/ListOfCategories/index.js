@@ -1,49 +1,66 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-filename-extension */
 import React, { Fragment, useEffect, useState } from 'react';
 import { Category } from '../Category';
 
 import { List, Item } from './styles';
 
-export const ListOfCategories = () => {
+function useCategoriesData() {
   const [categories, setCategories] = useState([]);
-  const [showFixed, setShowFixed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useEffect(function () {
+    setLoading(true);
     window
       .fetch('https://petgram-server-fernando-bt7tt9d9u.vercel.app/categories')
       .then((res) => res.json())
       .then((response) => {
         setCategories(response);
+        setLoading(false);
       });
   }, []);
 
-  useEffect(() => {
-    const onScroll = (e) => {
-      const newShowFixed = window.scrollY > 200;
-      showFixed !== newShowFixed && setShowFixed(newShowFixed);
-    };
+  return { categories, loading };
+}
 
-    document.addEventListener('scroll', onScroll);
+const ListOfCategoriesComponent = () => {
+  const { categories, loading } = useCategoriesData();
+  const [showFixed, setShowFixed] = useState(false);
 
-    return () => document.removeEventListener('scroll', onScroll);
-  }, [showFixed]);
+  useEffect(
+    function () {
+      const onScroll = (e) => {
+        const newShowFixed = window.scrollY > 200;
+        showFixed !== newShowFixed && setShowFixed(newShowFixed);
+      };
+
+      document.addEventListener('scroll', onScroll);
+
+      return () => document.removeEventListener('scroll', onScroll);
+    },
+    [showFixed]
+  );
 
   const renderList = (fixed) => (
-    <List className={fixed ? 'fixed' : ''}>
-      {categories.map((category) => (
-        <Item key={category.id}>
-          <Category {...category} path={`/pet/${category.id}`} />
+    <List fixed={fixed}>
+      {loading ? (
+        <Item key='loading'>
+          <Category />
         </Item>
-      ))}
+      ) : (
+        categories.map((category) => (
+          <Item key={category.id}>
+            <Category {...category} path={`/pet/${category.id}`} />
+          </Item>
+        ))
+      )}
     </List>
   );
 
   return (
-    <>
+    <Fragment>
       {renderList()}
       {showFixed && renderList(true)}
-    </>
+    </Fragment>
   );
 };
+
+export const ListOfCategories = React.memo(ListOfCategoriesComponent);

@@ -1,14 +1,20 @@
-import React, { Fragment, useContext } from 'react';
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable import/prefer-default-export */
+import React, { useContext } from 'react';
 import { Context } from '../Context';
 import { UserForm } from '../components/UserForm';
 import { RegisterMutation } from '../container/RegisterMutation';
 import { LoginMutation } from '../container/LoginMutation';
+import { Layout } from '../components/Layout';
 
-export const NotRegisteredUser = () => {
+export default () => {
   const { activateAuth } = useContext(Context);
 
   return (
-    <Fragment>
+    <Layout
+      title='Inicia Sesión'
+      subtitle='Debes de Iniciar Sesión para ver este contenido'
+    >
       <RegisterMutation>
         {(register, { data, loading, error }) => {
           const onSubmit = ({ email, password }) => {
@@ -58,6 +64,6 @@ export const NotRegisteredUser = () => {
           );
         }}
       </LoginMutation>
-    </Fragment>
+    </Layout>
   );
 };

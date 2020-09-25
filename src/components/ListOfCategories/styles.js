@@ -4,6 +4,7 @@ export const List = styled.ul`
   display: flex;
   overflow: scroll;
   width: 100%;
+  margin-top: 20px;
   &.fixed {
     background: #fff;
     border-radius: 60px;
