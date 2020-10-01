@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavButton Snapshot Comprobar la Ui del componente Footer 1`] = `
+<a
+  className="sc-bdnylx hoVPpH"
+  href="/#"
+  onClick={[Function]}
+>
+  <img
+    className="sc-gtssRu enmhvV"
+    src="https://i.imgur.com/dJa0Hpl.jpg"
+  />
+  ?
+</a>
+`;

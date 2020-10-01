@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavButton Snapshot Comprobar la Ui del componente Footer 1`] = `
+<form
+  className="sc-bdnylx gNCeED"
+  onSubmit={[Function]}
+>
+  <h2
+    className="sc-hKFyIo iRLQpE"
+  />
+  <input
+    className="sc-gtssRu jZyEmI"
+    onChange={[Function]}
+    placeholder="Email"
+    value=""
+  />
+  <input
+    className="sc-gtssRu jZyEmI"
+    onChange={[Function]}
+    placeholder="Password"
+    type="password"
+    value=""
+  />
+  <button
+    className="sc-jSFkmK eILAYh"
+  />
+</form>
+`;
